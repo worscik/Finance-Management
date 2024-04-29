@@ -22,6 +22,9 @@ public class FinancialAccount {
     private Instant createdOn;
     private FinancialCurrency financialCurrency;
 
+    private FinancialAccount() {
+    }
+
     private FinancialAccount(Builder builder) {
         this.externalId = builder.externalId;
         this.name = builder.name;

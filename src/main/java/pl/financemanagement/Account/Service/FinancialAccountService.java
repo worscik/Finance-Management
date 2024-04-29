@@ -4,16 +4,17 @@ import pl.financemanagement.Account.Model.Account.AccountDto;
 import pl.financemanagement.Account.Model.Account.AccountRequest;
 import pl.financemanagement.Account.Model.Account.BasicAccountRequest;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface FinancialAccountService {
 
-    AccountDto addAccount(AccountRequest accountRequest);
+    Optional<AccountDto> saveAccount(AccountRequest accountRequest);
 
-    AccountDto getAccount(BasicAccountRequest BasicAccountRequest);
+    Optional<AccountDto> getAccount(UUID externalId);
 
-    AccountDto upsertAccount(AccountRequest accountRequest);
+    Optional<AccountDto> upsertAccount(AccountRequest accountRequest);
 
-    boolean deleteAccount(BasicAccountRequest BasicAccountRequest);
+    void deleteAccount(BasicAccountRequest BasicAccountRequest);
 
 }

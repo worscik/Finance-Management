@@ -11,13 +11,9 @@ import java.math.BigDecimal;
 @Service
 public class CurrencyService {
 
-    @Autowired
-    private final RestTemplate restTemplate;
 
+    private RestTemplate restTemplate;
 
-    public CurrencyService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     public BigDecimal getCurrentCurrencyRate(FinancialCurrency financialCurrency){
         return BigDecimal.valueOf(0.321321312);

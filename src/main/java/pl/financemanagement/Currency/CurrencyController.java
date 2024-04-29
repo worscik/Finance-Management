@@ -15,12 +15,12 @@ public class CurrencyController {
         return null;
     }
 
-    @GetMapping("/getEuroExchangeRate")
+    @GetMapping("/getBritishPoundExchangeRate")
     BigDecimal getBritishPoundExchangeRate(){
         return null;
     }
 
-    @GetMapping("/getEuroExchangeRate")
+    @GetMapping("/getDollarExchangeRate")
     BigDecimal getDollarExchangeRate(){
         return null;
     }
