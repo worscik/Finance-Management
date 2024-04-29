@@ -32,9 +32,6 @@ public class CurrencyService {
 
     private String resolveUrl(FinancialCurrency currency){
         switch (currency){
-            case PLN -> {
-                return "https://api.nbp.pl/api/exchangerates/rates/a/pln/";
-            }
             case GBP -> {
                 return "https://api.nbp.pl/api/exchangerates/rates/a/gbp/";
             }
