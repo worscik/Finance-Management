@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class ExpenseRequest {
 
-    @NotNull(message = "externalId can not be empty")
+    @NotNull(message = "externalId cannot be empty")
     private UUID externalId;
     private String name;
     private BigDecimal amount;

@@ -3,21 +3,23 @@ package pl.financemanagement.Expense.Service;
 import org.springframework.stereotype.Service;
 import pl.financemanagement.Expense.Model.ExpenseDto;
 import pl.financemanagement.Expense.Model.ExpenseRequest;
+import pl.financemanagement.Expense.Model.ExpenseResponse;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BudgetService {
 
-    ExpenseDto addExpense(ExpenseRequest expenseRequest);
+    Optional<ExpenseResponse> addExpense(ExpenseRequest expenseRequest, ExpenseResponse expenseResponse);
 
-    ExpenseDto getExpenseById(ExpenseRequest expenseRequest);
+    Optional<ExpenseResponse> getExpenseById(UUID externalID, ExpenseResponse expenseResponse);
 
-    List<ExpenseDto> getExpenses(UUID externalID);
+    Optional<List<ExpenseDto>> getExpenses();
 
-    ExpenseDto upsertExpense();
+    Optional<ExpenseDto> upsertExpense();
 
-    ExpenseDto removeExpense(UUID externalID);
+    Optional<ExpenseDto> removeExpense(UUID externalID);
 
 
 }

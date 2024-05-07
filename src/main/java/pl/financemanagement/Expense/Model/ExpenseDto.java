@@ -9,15 +9,13 @@ public class ExpenseDto {
 
     private BigDecimal amount;
     private boolean success;
-    private String message;
 
     public ExpenseDto() {
     }
 
-    public ExpenseDto(BigDecimal amount, boolean success, String message) {
+    public ExpenseDto(BigDecimal amount, boolean success) {
         this.amount = amount;
         this.success = success;
-        this.message = message;
     }
 
     public BigDecimal getAmount() {
@@ -34,13 +32,5 @@ public class ExpenseDto {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

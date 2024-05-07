@@ -5,13 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.financemanagement.Expense.Model.ExpenseDto;
 import pl.financemanagement.Expense.Model.ExpenseRequest;
 import pl.financemanagement.Expense.Model.ExpenseResponse;
 import pl.financemanagement.Expense.Service.BudgetService;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/expense")
@@ -31,8 +30,10 @@ public class ExpenseController {
             response.setMessage("ExternalId cannot be empty");
             return ResponseEntity.badRequest().body(response);
         }
-        response.setExpense(budgetService.addExpense(expenseRequest));
-        return ResponseEntity.ok().body(response);
+
+        return budgetService.addExpense(expenseRequest, response)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().body(response));
     }
 
     @GetMapping("/{externalId}")
@@ -42,12 +43,16 @@ public class ExpenseController {
             response.setMessage("ExternalId cannot be empty");
             return ResponseEntity.badRequest().body(response);
         }
-        return null;
+        return budgetService.getExpenseById(externalId,response)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().body(response));
     }
 
     @GetMapping("/")
-    ResponseEntity<List<ExpenseResponse>> getExposes() {
-        return null;
+    ResponseEntity<List<ExpenseDto>> getExposes() {
+        return budgetService.getExpenses()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().body(Collections.emptyList()));
     }
 
     @PatchMapping("/{externalId}")
