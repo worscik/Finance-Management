@@ -21,6 +21,9 @@ public class Expense {
     private Instant createdOn;
     private int version;
 
+    public Expense() {
+    }
+
     private Expense(Builder builder) {
         this.externalId = builder.externalId;
         this.name = builder.name;

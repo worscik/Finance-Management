@@ -2,6 +2,7 @@ package pl.financemanagement.Expense.Controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,10 @@ import pl.financemanagement.Expense.Model.ExpenseRequest;
 import pl.financemanagement.Expense.Model.ExpenseResponse;
 import pl.financemanagement.Expense.Service.BudgetService;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/expense")
@@ -25,15 +29,11 @@ public class ExpenseController {
 
     @PostMapping()
     ResponseEntity<ExpenseResponse> addExpense(@RequestBody @Valid ExpenseRequest expenseRequest, BindingResult result) {
-        ExpenseResponse response = new ExpenseResponse();
-        if (Objects.isNull(expenseRequest.getExternalId())) {
-            response.setMessage("ExternalId cannot be empty");
-            return ResponseEntity.badRequest().body(response);
+        if(result.hasErrors()) {
+            System.out.println(result.hasErrors());
+            return ResponseEntity.badRequest().body(new ExpenseResponse(null, result.toString()));
         }
-
-        return budgetService.addExpense(expenseRequest, response)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().body(response));
+        return ResponseEntity.ok().body(budgetService.addExpense(expenseRequest));
     }
 
     @GetMapping("/{externalId}")
@@ -43,16 +43,14 @@ public class ExpenseController {
             response.setMessage("ExternalId cannot be empty");
             return ResponseEntity.badRequest().body(response);
         }
-        return budgetService.getExpenseById(externalId,response)
+        return budgetService.getExpenseById(externalId, response)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().body(response));
     }
 
-    @GetMapping("/")
-    ResponseEntity<List<ExpenseDto>> getExposes() {
-        return budgetService.getExpenses()
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.ok().body(Collections.emptyList()));
+    @GetMapping("/expenses")
+    ResponseEntity<List<ExpenseDto>> getExpenses() {
+        return ResponseEntity.ok().body(budgetService.getExpenses());
     }
 
     @PatchMapping("/{externalId}")
@@ -62,16 +60,18 @@ public class ExpenseController {
             response.setMessage("ExternalId cannot be empty");
             return ResponseEntity.badRequest().body(response);
         }
-        return null;
+        return budgetService.upsertExpense(expenseRequest)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().body(response));
     }
 
     @DeleteMapping("/{externalId}")
-    ResponseEntity<Boolean> removeExposeById(@PathVariable UUID externalId) {
-        ExpenseResponse response = new ExpenseResponse();
+    ResponseEntity<HttpStatus> removeExposeById(@PathVariable UUID externalId) {
         if (Objects.isNull(externalId)) {
-            response.setMessage("ExternalId cannot be empty");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(HttpStatus.BAD_REQUEST);
         }
+        budgetService.removeExpense(externalId);
         return ResponseEntity.noContent().build();
+
     }
 }
