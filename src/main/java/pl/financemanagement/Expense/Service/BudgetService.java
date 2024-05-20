@@ -12,13 +12,13 @@ public interface BudgetService {
 
     ExpenseResponse addExpense(ExpenseRequest expenseRequest);
 
-    Optional<ExpenseResponse> getExpenseById(UUID externalID, ExpenseResponse expenseResponse);
+    Optional<ExpenseResponse> getExpenseById(String externalID, ExpenseResponse expenseResponse);
 
     List<ExpenseDto> getExpenses();
 
     Optional<ExpenseResponse> upsertExpense(ExpenseRequest expenseRequest);
 
-    void removeExpense(UUID externalID);
+    void removeExpense(String externalID);
 
 
 }

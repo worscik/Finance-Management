@@ -1,31 +1,33 @@
 package pl.financemanagement.Expense.Model;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class ExpenseRequest {
 
-    @NotNull(message = "externalId cannot be empty")
-    private UUID externalId;
-    @NotEmpty(message = "Name can not be empty")
+    @Size(min = 1, max = 128, message = "ExternalId cannot be empty")
+    private String externalId;
+    @Size(min = 1, max = 128, message = "Name can not be empty")
     private String name;
-    @NotNull(message = "Amount cannot be null")
+    @NotNull(message = "Price cannot be null")
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;
 
-    public ExpenseRequest(UUID externalId, String name, BigDecimal amount) {
+    public ExpenseRequest(String externalId, String name, BigDecimal amount) {
         this.externalId = externalId;
         this.name = name;
         this.amount = amount;
     }
 
-    public UUID getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(UUID externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 

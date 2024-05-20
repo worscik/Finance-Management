@@ -1,16 +1,18 @@
 package pl.financemanagement.Expense.Model;
 
+import java.util.List;
+
 public class ExpenseResponse {
 
     ExpenseDto expense;
-    String message;
+    List<String> messages;
 
     public ExpenseResponse() {
     }
 
-    public ExpenseResponse(ExpenseDto expense, String message) {
+    public ExpenseResponse(ExpenseDto expense, List<String> messages) {
         this.expense = expense;
-        this.message = message;
+        this.messages = messages;
     }
 
     public ExpenseDto getExpense() {
@@ -21,11 +23,11 @@ public class ExpenseResponse {
         this.expense = expense;
     }
 
-    public String getMessage() {
-        return message;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 }

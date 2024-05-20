@@ -15,7 +15,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private UUID externalId;
+    private String externalId;
     private String name;
     private BigDecimal amount;
     private Instant createdOn;
@@ -56,11 +56,11 @@ public class Expense {
         this.version = version;
     }
 
-    public UUID getExternalId() {
+    public String getExternalId() {
         return externalId;
     }
 
-    public void setExternalId(UUID externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
@@ -81,13 +81,13 @@ public void setAmount(BigDecimal amount) {
 }
 
 public static class Builder {
-    private UUID externalId;
+    private String externalId;
     private String name;
     private BigDecimal amount;
     private Instant createdOn;
     private int version;
 
-    public Builder withExternalId(UUID externalId) {
+    public Builder withExternalId(String externalId) {
         this.externalId = externalId;
         return this;
     }

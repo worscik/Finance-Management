@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface ExpenseDao extends CrudRepository<Expense, Long> {
 
-    Optional<Expense> findByExternalId(UUID externalId);
+    Optional<Expense> findByExternalId(String externalId);
 }
